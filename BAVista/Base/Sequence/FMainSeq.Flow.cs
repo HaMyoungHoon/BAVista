@@ -343,6 +343,29 @@ namespace BAVista.Base.Sequence
 
                 try
                 {
+                    int loadingBoxCount = 0;
+                    var loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    while (loadingBox != null)
+                    {
+                        if (loadingBoxCount > 30 * 1000)
+                        {
+                            return RET.WAIT;
+                        }
+                        if (Pause)
+                        {
+                            return RET.WAIT;
+                        }
+
+                        string display = loadingBox.GetCssValue("display");
+                        if (display == "none")
+                        {
+                            break;
+                        }
+                        Thread.Sleep(50);
+                        loadingBoxCount += 50;
+                        loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    }
+
                     IWebElement? calendar = FindElement(_driver, _calendar, FBaseFunc.ElementType.CLASS);
                     if (calendar != null)
                     {
@@ -393,7 +416,29 @@ namespace BAVista.Base.Sequence
 
                 try
                 {
-                    
+                    int loadingBoxCount = 0;
+                    var loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    while (loadingBox != null)
+                    {
+                        if (loadingBoxCount > 30 * 1000)
+                        {
+                            return RET.WAIT;
+                        }
+                        if (Pause)
+                        {
+                            return RET.WAIT;
+                        }
+
+                        string display = loadingBox.GetCssValue("display");
+                        if (display == "none")
+                        {
+                            break;
+                        }
+                        Thread.Sleep(50);
+                        loadingBoxCount += 50;
+                        loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    }
+
                     ReadOnlyCollection<IWebElement>? day = FindElement(_driver, _calendar, FBaseFunc.ElementType.CLASS)?.FindElement(By.TagName("tbody"))?.FindElements(By.TagName("a"));
                     if (day == null)
                     {
@@ -464,6 +509,37 @@ namespace BAVista.Base.Sequence
             {
                 try
                 {
+                    try
+                    {
+                        int loadingBoxCount = 0;
+                        var loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                        while (loadingBox != null)
+                        {
+                            if (loadingBoxCount > 30 * 1000)
+                            {
+                                return RET.WAIT;
+                            }
+                            if (Pause)
+                            {
+                                return RET.WAIT;
+                            }
+
+                            string display = loadingBox.GetCssValue("display");
+                            if (display == "none")
+                            {
+                                break;
+                            }
+                            Thread.Sleep(50);
+                            loadingBoxCount += 50;
+                            loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                        }
+                    }
+                    catch
+                    {
+                        FBaseFunc.Ins.Print("로딩바를 못 찾음");
+                        return RET.WAIT;
+                    }
+
                     ReadOnlyCollection<IWebElement>? day = FindElement(_driver, _calendar, FBaseFunc.ElementType.CLASS)?.FindElement(By.TagName("tbody"))?.FindElements(By.TagName("a"));
                     if (day == null)
                     {
@@ -524,6 +600,29 @@ namespace BAVista.Base.Sequence
 
                 try
                 {
+                    int loadingBoxCount = 0;
+                    var loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    while (loadingBox != null)
+                    {
+                        if (loadingBoxCount > 30 * 1000)
+                        {
+                            return RET.WAIT;
+                        }
+                        if (Pause)
+                        {
+                            return RET.WAIT;
+                        }
+
+                        string display = loadingBox.GetCssValue("display");
+                        if (display == "none")
+                        {
+                            break;
+                        }
+                        Thread.Sleep(50);
+                        loadingBoxCount += 50;
+                        loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
+                    }
+
                     IWebElement? timeTable = FindElement(_driver, "timeTbl", FBaseFunc.ElementType.CLASS);
                     if (timeTable == null)
                     {
@@ -771,7 +870,7 @@ namespace BAVista.Base.Sequence
                     {
                         ocr.Close();
                     }
-                    Thread.Sleep(Cfg.Timeout);
+                    Thread.Sleep(2000);
                     string result = File.ReadAllText("./ocr/ret.txt");
                     if (result.Length > 0 && result.ToUpper() != "ERR")
                     {
