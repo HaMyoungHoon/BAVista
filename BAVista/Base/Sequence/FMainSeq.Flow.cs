@@ -167,13 +167,15 @@ namespace BAVista.Base.Sequence
                     if (Driver?.Url.ToUpper().Contains("BOOKING/GOLFCALENDAR") == true)
                     {
                     }
+
+                    Driver?.Navigate().GoToUrl(Cfg.CalendarUrl);
                 }
-                catch
+                catch (Exception e)
                 {
-
+                    _printf[thread].PRINT_F($"[Seq : {subSeq}]\t{e.Message}");
+                    return RET.WAIT;
                 }
 
-                Driver?.Navigate().GoToUrl(Cfg.CalendarUrl);
                 subSeq = 3;
                 return RET.WAIT;
             }
@@ -361,8 +363,8 @@ namespace BAVista.Base.Sequence
                         {
                             break;
                         }
-                        Thread.Sleep(50);
-                        loadingBoxCount += 50;
+                        Thread.Sleep(10);
+                        loadingBoxCount += 10;
                         loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
                     }
 
@@ -434,8 +436,8 @@ namespace BAVista.Base.Sequence
                         {
                             break;
                         }
-                        Thread.Sleep(50);
-                        loadingBoxCount += 50;
+                        Thread.Sleep(10);
+                        loadingBoxCount += 10;
                         loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
                     }
 
@@ -529,8 +531,8 @@ namespace BAVista.Base.Sequence
                             {
                                 break;
                             }
-                            Thread.Sleep(50);
-                            loadingBoxCount += 50;
+                            Thread.Sleep(10);
+                            loadingBoxCount += 10;
                             loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
                         }
                     }
@@ -618,8 +620,8 @@ namespace BAVista.Base.Sequence
                         {
                             break;
                         }
-                        Thread.Sleep(50);
-                        loadingBoxCount += 50;
+                        Thread.Sleep(10);
+                        loadingBoxCount += 10;
                         loadingBox = _driver?.FindElement(By.Id("ajaxLoadingBox"));
                     }
 
@@ -631,7 +633,7 @@ namespace BAVista.Base.Sequence
                         return RET.WAIT;
                     }
 
-                    bool firstSkip = false;
+                    bool firstSkip = true;
                     ReadOnlyCollection<IWebElement>? tr = timeTable.FindElements(By.TagName("tr"));
                     if (int.Parse(FBaseFunc.Ins.SelectedHour) > 11)
                     {
@@ -653,7 +655,7 @@ namespace BAVista.Base.Sequence
                                 }
 
                                 reserve?.Click();
-                                Thread.Sleep(500);
+                                Thread.Sleep(100);
                                 if (IsAlertOpen())
                                 {
                                     FBaseFunc.Ins.Print($"{buff.Substring(buff.IndexOf(":") - 2, 5)}시 skip; 다른 회원 예약");
@@ -706,7 +708,7 @@ namespace BAVista.Base.Sequence
                                 }
 
                                 reserve?.Click();
-                                Thread.Sleep(500);
+                                Thread.Sleep(100);
                                 if (IsAlertOpen())
                                 {
                                     FBaseFunc.Ins.Print($"{buff.Substring(buff.IndexOf(":") - 2, 5)}시 skip; 다른 회원 예약");
@@ -758,7 +760,7 @@ namespace BAVista.Base.Sequence
                         }
 
                         reserve?.Click();
-                        Thread.Sleep(1000);
+                        Thread.Sleep(100);
                         if (IsAlertOpen())
                         {
                             FBaseFunc.Ins.Print($"{buff.Substring(buff.IndexOf(":") - 2, 5)}시 skip; 다른 회원 예약");

@@ -25,10 +25,10 @@ namespace BAVista
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            if (CheckRunning())
-            {
-                return;
-            }
+//            if (CheckRunning())
+//            {
+//                return;
+//            }
 
             FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
             FBaseFunc.Ins.InitSystem();
